@@ -44,7 +44,6 @@ public class Score {
                 default -> score += trials[i] - '0';
             }
         }
-        System.out.println("score:"+score);
 
         if (checkMax && score > ALL_KNOCKED){
             throw new IllegalArgumentException("Input is not valid.");
@@ -57,18 +56,14 @@ public class Score {
         char[] trials = frame.getTrials();
         if (nextFrame == null){ // 10th round, basic score can be more than 10
             frameScore += calculateTrialsScore(trials);
-            System.out.println("1 frameScore:"+frameScore);
         }else { // 1-9th round, basic score cannot be more than 10
             frameScore += calculateTrialsScore(trials, true);
-            System.out.println("2 frameScore:"+frameScore);
         }
 
         if (checkNextThrow == 1) {
             frameScore += calculateTrialsScore(getNextThrow());
-            System.out.println("3 frameScore:"+frameScore);
         } else if (checkNextThrow == 2) {
             frameScore += calculateTrialsScore(getNextTwoThrow());
-            System.out.println("4 frameScore:"+frameScore);
         }
         return frameScore;
     }

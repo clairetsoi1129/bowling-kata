@@ -6,13 +6,16 @@ public class BowlingGame {
     @SuppressWarnings("FieldMayBeFinal")
     private Score[] scores;
 
+    @SuppressWarnings("FieldCanBeLocal")
+    private final int MAX_FRAMES = 10;
+
     public BowlingGame(String input) {
         if (!validateInput(input))
             throw new IllegalArgumentException("Input is not valid.");
 
         String[] frameStrArray = input.split(" ");
-        frames = new Frame[10];
-        scores = new Score[10];
+        frames = new Frame[MAX_FRAMES];
+        scores = new Score[MAX_FRAMES];
         for (int i = 0; i < frameStrArray.length; i++) {
             frames[i] = new Frame(frameStrArray[i]);
         }
