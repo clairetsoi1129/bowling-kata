@@ -17,8 +17,15 @@ public class BowlingGame {
         int totalScore = 0;
 
         for (int i=0; i<frames.length; i++){
-            scores[i] = new Score(frames[i]);
-            totalScore += scores[i].calculateFrameScore();
+            Frame nextFrame = null;
+            try {
+                nextFrame = frames[i+1];
+            }catch (ArrayIndexOutOfBoundsException e){
+
+            }finally{
+                scores[i] = new Score(frames[i], nextFrame);
+                totalScore += scores[i].calculateFrameScore();
+            }
         }
         // Assumption:
         // input - 10 frames, each frame has 1-3 trials
