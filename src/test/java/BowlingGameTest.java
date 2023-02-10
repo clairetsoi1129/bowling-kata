@@ -12,4 +12,20 @@ public class BowlingGameTest {
         int actualValue = bowling.calculateFinalScore();
         assertEquals(expected, actualValue);
     }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/invalidData.csv", numLinesToSkip = 1)
+    void testInvalidNumeralThrowException(
+            String input) {
+        Exception exception = assertThrows(IllegalArgumentException.class,
+                () -> {
+                    BowlingGame bowling = new BowlingGame(input);
+                    bowling.calculateFinalScore();
+                });
+
+        String expectedMessage = "Input is not valid.";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
 }

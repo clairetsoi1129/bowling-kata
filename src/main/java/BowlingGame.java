@@ -1,14 +1,19 @@
+import java.util.regex.Pattern;
 
 public class BowlingGame {
-    private String game;
+    @SuppressWarnings("FieldMayBeFinal")
     private Frame[] frames;
+    @SuppressWarnings("FieldMayBeFinal")
     private Score[] scores;
 
-    public BowlingGame(String input){
+    public BowlingGame(String input) {
+        if (!validateInput(input))
+            throw new IllegalArgumentException("Input is not valid.");
+
         String[] frameStrArray = input.split(" ");
         frames = new Frame[10];
         scores = new Score[10];
-        for (int i=0; i<frameStrArray.length; i++){
+        for (int i = 0; i < frameStrArray.length; i++) {
             frames[i] = new Frame(frameStrArray[i]);
         }
     }
@@ -16,19 +21,21 @@ public class BowlingGame {
     public int calculateFinalScore() {
         int totalScore = 0;
 
-        for (int i=0; i<frames.length; i++){
+        for (int i = 0; i < frames.length; i++) {
             Frame nextFrame = null;
             Frame afterNextFrame = null;
+            //noinspection CatchMayIgnoreException
             try {
-                nextFrame = frames[i+1];
-                afterNextFrame = frames[i+2];
-            }catch (ArrayIndexOutOfBoundsException e){
+                nextFrame = frames[i + 1];
+                afterNextFrame = frames[i + 2];
+            } catch (ArrayIndexOutOfBoundsException e) {
 
-            }finally{
+            } finally {
                 scores[i] = new Score(frames[i], nextFrame, afterNextFrame);
                 totalScore += scores[i].calculateFrameScore();
             }
         }
+
         // Assumption:
         // input - 10 frames, each frame has 1-3 trials
         // output - total score
@@ -43,5 +50,14 @@ public class BowlingGame {
         // 5 - validation of input
 
         return totalScore;
+    }
+
+    private boolean validateInput(String input) {
+        boolean result = false;
+        if (input != null && !"".equals(input)) {
+            String regex = "^([-1-9X][-1-9/]{0,1}\s|[X\s]){9}(X[-1-9X/]{1,2}|[-1-9]/[-1-9X]|[-1-9][-1-9/])$";
+            result = Pattern.compile(regex).matcher(input).matches();
+        }
+        return result;
     }
 }

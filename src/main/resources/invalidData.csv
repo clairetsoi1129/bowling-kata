@@ -1,0 +1,9 @@
+input,remark
+, empty input
+ , blank input
+98 12 12 12 12 12 12 12 12 12, first frame greater than 10
+12 12 12 12 12 12 12 12 12, less than 10 rounds
+122 12 12 12 12 12 12 12 12 12, 1-9th frame has 3 throws (only 10th round can have 3 throws)
+12 12 12 12 12 12 12 12 12 123, 10th frame has 3 throws while it does not have strike/spare
+/2 12 12 12 12 12 12 12 12 123, spare appear in first throws
+XX XX XX XX XX XX XX XX XX XXX, strike cannot apppear 2 times in a frame

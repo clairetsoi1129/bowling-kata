@@ -1,12 +1,13 @@
 import java.util.Arrays;
 
 public class Frame {
-    private char[] trials = new char[]{'0','0','0'};
+    @SuppressWarnings("FieldMayBeFinal")
+    private char[] trials = {'0','0','0'};
 
-    public Frame(String trialStr){
-        for (int i=0; i<trialStr.length(); i++){
-            if (trialStr.charAt(i) != Score.MISSING) {
-                this.trials[i] = trialStr.charAt(i);
+    public Frame(String frame) {
+        for (int i=0; i<frame.length(); i++) {
+            if (frame.charAt(i) != Score.MISSING) {
+                this.trials[i] = frame.charAt(i);
             }
         }
     }
