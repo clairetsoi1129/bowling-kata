@@ -23,7 +23,7 @@ public class Score {
         this.afterNextFrame = afterNextFrame;
     }
 
-    private int calculateTrialsScore(char[] trials){
+    private int calculateTrialsScore(char[] trials) {
         return calculateTrialsScore(trials, false);
     }
 
@@ -45,7 +45,7 @@ public class Score {
             }
         }
 
-        if (checkMax && score > ALL_KNOCKED){
+        if (checkMax && score > ALL_KNOCKED) {
             throw new IllegalArgumentException("Input is not valid.");
         }
         return score;
@@ -54,9 +54,9 @@ public class Score {
     public int calculateFrameScore() {
         int frameScore = 0;
         char[] trials = frame.getTrials();
-        if (nextFrame == null){ // 10th round, basic score can be more than 10
+        if (nextFrame == null) { // 10th round, basic score can be more than 10
             frameScore += calculateTrialsScore(trials);
-        }else { // 1-9th round, basic score cannot be more than 10
+        } else { // 1-9th round, basic score cannot be more than 10
             frameScore += calculateTrialsScore(trials, true);
         }
 
@@ -69,12 +69,9 @@ public class Score {
     }
 
     private char[] getNextThrow() {
-        // if nextFrame is null, return the first round
-        char[] trials = new char[]{'0'};
-        if (nextFrame != null) { // 1-9 round
-            trials[0] = nextFrame.getTrials()[0];
-        } // else {} // 10 th round already included in calculation
-        return trials;
+        // if nextFrame is not null (1-9th round), return the first trial
+        // else 10th round already included in calculation, return 0
+        return nextFrame != null ? new char[]{nextFrame.getTrials()[0]} : new char[]{'0'};
     }
 
     private char[] getNextTwoThrow() {
