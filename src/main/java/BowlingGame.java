@@ -18,12 +18,14 @@ public class BowlingGame {
 
         for (int i=0; i<frames.length; i++){
             Frame nextFrame = null;
+            Frame afterNextFrame = null;
             try {
                 nextFrame = frames[i+1];
+                afterNextFrame = frames[i+2];
             }catch (ArrayIndexOutOfBoundsException e){
 
             }finally{
-                scores[i] = new Score(frames[i], nextFrame);
+                scores[i] = new Score(frames[i], nextFrame, afterNextFrame);
                 totalScore += scores[i].calculateFrameScore();
             }
         }
